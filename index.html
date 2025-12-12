@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,6 +89,7 @@
     }
   </style>
 </head>
+
 <body>
   <h1>Misper Report Form</h1>
 
@@ -131,7 +133,8 @@
     <div class="checkbox-group" aria-label="Investigations">
       <label><input type="checkbox" name="investigations" value="CCVT Reviewed"> CCTV</label>
       <label><input type="checkbox" name="investigations" value="Home Searched"> Home Address</label>
-      <label><input type="checkbox" name="investigations" value="Immediate vacinity Searched"> Immediate vacinity</label>
+      <label><input type="checkbox" name="investigations" value="Immediate vacinity Searched"> Immediate
+        vacinity</label>
       <label><input type="checkbox" name="investigations" value="Family/Friends contacted"> Family/Friends</label>
       <label><input type="checkbox" name="investigations" value="Hospitals contacted"> Hospitals</label>
       <label><input type="checkbox" name="investigations" value="Nearby roads searched"> Roads</label>
@@ -177,104 +180,105 @@
   </form>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.forms['reportForm'];
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.forms['reportForm'];
 
-    // Auto-fill date and time
-    const dateField = form?.dateTaken;
-    if (dateField) {
-      dateField.value = new Date().toISOString().split("T")[0];
-    }
+      // Auto-fill date and time
+      const dateField = form?.dateTaken;
+      if (dateField) {
+        dateField.value = new Date().toISOString().split("T")[0];
+      }
 
-    const timeField = form?.timeTaken;
-    if (timeField) {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2,'0');
-      const minutes = now.getMinutes().toString().padStart(2,'0');
-      timeField.value = `${hours}:${minutes}`;
-    }
-  });
+      const timeField = form?.timeTaken;
+      if (timeField) {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        timeField.value = `${hours}:${minutes}`;
+      }
+    });
 
-  function collectFormData() {
-    const form = document.forms['reportForm'];
-    const getChecked = (name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(el=>el.value).join(', ');
+    function collectFormData() {
+      const form = document.forms['reportForm'];
+      const getChecked = (name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(el => el.value).join(', ');
 
-    return `
+      return `
 --- Initial Details ---
-Date Taken: ${form.dateTaken.value||''} ${form.timeTaken.value||''}
-Report from: ${form.reportFrom.value||''}
-Tel/ISSI: ${form.tel.value||''}
-PolSA: ${form.polsa.value||''}
-PolSA Tel/ISSI: ${form.polsatel.value||''}
+Date Taken: ${form.dateTaken.value || ''} ${form.timeTaken.value || ''}
+Report from: ${form.reportFrom.value || ''}
+Tel/ISSI: ${form.tel.value || ''}
+PolSA: ${form.polsa.value || ''}
+PolSA Tel/ISSI: ${form.polsatel.value || ''}
 
 --- Informant Details ---
-Name: ${form.informantName.value||''}
-Relationship to Misper: ${form.relationship.value||''}
-Tel: ${form.informantTel.value||''}
+Name: ${form.informantName.value || ''}
+Relationship to Misper: ${form.relationship.value || ''}
+Tel: ${form.informantTel.value || ''}
 
 --- Misper Details ---
-Name: ${form.misperName.value||''}
-Age: ${form.misperAge.value||''}
-Address: ${form.misperAddress.value||''}
-Tel: ${form.misperTel.value||''}
-Description: ${form.misperDescription.value||''}
-Past Medical Hx: ${form.misperPMH.value||''}
+Name: ${form.misperName.value || ''}
+Age: ${form.misperAge.value || ''}
+Address: ${form.misperAddress.value || ''}
+Tel: ${form.misperTel.value || ''}
+Description: ${form.misperDescription.value || ''}
+Past Medical Hx: ${form.misperPMH.value || ''}
 
 --- Initial Planning Point ---
 Location Type: ${getChecked('locType')}
-Location: ${form.location.value||''}
-Date last seen: ${form.dateLastSeen.value||''}
-Time last seen: ${form.timeLastSeen.value||''}
-Description of Events: ${form.eventDescription.value||''}
-Method of travel: ${form.travelMethod.value||''}
-Additional Info: ${form.additionalInfo.value||''}
+Location: ${form.location.value || ''}
+Date last seen: ${form.dateLastSeen.value || ''}
+Time last seen: ${form.timeLastSeen.value || ''}
+Description of Events: ${form.eventDescription.value || ''}
+Method of travel: ${form.travelMethod.value || ''}
+Additional Info: ${form.additionalInfo.value || ''}
 
 --- Police Work ---
 Investigations Completed: ${getChecked('investigations')}
-Other: ${form.investigationsOther.value||''}
+Other: ${form.investigationsOther.value || ''}
 
 --- Weather ---
-Past: ${form.weatherPast.value||''}
-Present: ${form.weatherPresent.value||''}
-Forecast: ${form.weatherForecast.value||''}
+Past: ${form.weatherPast.value || ''}
+Present: ${form.weatherPresent.value || ''}
+Forecast: ${form.weatherForecast.value || ''}
 
 --- Risk Assessment ---
 High Risk Features: ${getChecked('highRisk')}
 Low Risk Features: ${getChecked('lowRisk')}
 `.trim();
-  }
-
-  function copyToClipboard() {
-    const text = collectFormData();
-    if (!navigator.clipboard) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); alert('Form copied!'); } 
-      catch(e){ alert('Copy failed'); }
-      document.body.removeChild(ta);
-      return;
     }
-    navigator.clipboard.writeText(text).then(()=>alert('Form copied!')).catch(()=>alert('Copy failed'));
-  }
 
-  function downloadAsText() {
-    const form = document.forms['reportForm'];
-    if(!confirm("WARNING: This file may contain personal data.\nDelete it when no longer needed.")) return;
+    function copyToClipboard() {
+      const text = collectFormData();
+      if (!navigator.clipboard) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); alert('Form copied!'); }
+        catch (e) { alert('Copy failed'); }
+        document.body.removeChild(ta);
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => alert('Form copied!')).catch(() => alert('Copy failed'));
+    }
 
-    const text = collectFormData();
-    const dateValue = (form.dateTaken?.value||'no-date').replace(/[^0-9-]/g,'') || 'no-date';
-    const blob = new Blob([text], {type:'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `incident_report_${dateValue}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  }
+    function downloadAsText() {
+      const form = document.forms['reportForm'];
+      if (!confirm("WARNING: This file may contain personal data.\nDelete it when no longer needed.")) return;
+
+      const text = collectFormData();
+      const dateValue = (form.dateTaken?.value || 'no-date').replace(/[^0-9-]/g, '') || 'no-date';
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `incident_report_${dateValue}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
+
 </html>
