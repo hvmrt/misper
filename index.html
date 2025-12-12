@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misper Report Form</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      margin: 20px;
+      color: #f0f6fc;
+      background: #0d1117;
+    }
+
+    h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      grid-column: 1 / -1;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 900px) {
+      form {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      color: #9198a1;
+    }
+
+    input:not([type="checkbox"]),
+    textarea,
+    select {
+      width: 100%;
+      padding: 6px;
+      color: #f0f6fc;
+      margin-top: 5px;
+      border-radius: 6px;
+      box-shadow: inset 0px 1px 0px 0px #0104093d;
+      border-color: #3d444d;
+      background-color: #151b23;
+      box-sizing: border-box;
+    }
+
+    /* Optimized checkbox group */
+    .checkbox-group {
+      display: block;
+    }
+
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 12px;
+      margin-bottom: 6px;
+      border-color: #3d444d;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 4px;
+    }
+
+    button {
+      grid-column: 1 / -1;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 6px;
+      border-color: #ffffff26;
+      background-color: #238636;
+      color: #ffff;
+      box-shadow: 0px 1px 1px 0px #01040999, 0px 1px 3px 0px #01040999;
+      font-family: inherit;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #29903b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Misper Report Form</h1>
+
+  <form id="reportForm" autocomplete="off">
+
+    <h2>Initial Details</h2>
+    <label>Report from <input name="reportFrom" type="text"></label>
+    <label>Tel/ISSI <input name="tel" type="text"></label>
+    <label>PolSA Name <input name="polsa" type="text"></label>
+    <label>PolSA Tel/ISSI <input name="polsatel" type="text"></label>
+    <label>Date Taken <input type="date" name="dateTaken"></label>
+    <label>Time Taken <input type="time" name="timeTaken"></label>
+
+    <h2>Informant Details</h2>
+    <label>Name <input name="informantName" type="text"></label>
+    <label>Relationship to MISPER <input name="relationship" type="text"></label>
+    <label>Tel <input name="informantTel" type="text"></label>
+
+    <h2>Misper Details</h2>
+    <label>Name <input name="misperName" type="text"></label>
+    <label>Age <input name="misperAge" type="text"></label>
+    <label>Address <input name="misperAddress" type="text"></label>
+    <label>Tel <input name="misperTel" type="text"></label>
+    <label>Description/Clothing <textarea name="misperDescription" rows="5"></textarea></label>
+    <label>Past Medical Hx <textarea name="misperPMH" rows="5"></textarea></label>
+
+    <h2>Initial Planning Point</h2>
+    <label>Location <input name="location" type="text"></label>
+    <div class="checkbox-group" aria-label="Location type">
+      <label><input type="checkbox" name="locType" value="PLS"> PLS</label>
+      <label><input type="checkbox" name="locType" value="LKP"> LKP</label>
+    </div>
+
+    <label>Date last seen <input type="date" name="dateLastSeen"></label>
+    <label>Time last seen <input type="time" name="timeLastSeen"></label>
+    <label>Description of Events <textarea name="eventDescription" rows="5"></textarea></label>
+    <label>Method of travel <input name="travelMethod" type="text"></label>
+    <label>Additional Info <textarea name="additionalInfo" rows="5"></textarea></label>
+
+    <h2>Police Investigations Completed</h2>
+    <div class="checkbox-group" aria-label="Investigations">
+      <label><input type="checkbox" name="investigations" value="CCVT Reviewed"> CCTV</label>
+      <label><input type="checkbox" name="investigations" value="Home Searched"> Home Address</label>
+      <label><input type="checkbox" name="investigations" value="Immediate vacinity Searched"> Immediate vacinity</label>
+      <label><input type="checkbox" name="investigations" value="Family/Friends contacted"> Family/Friends</label>
+      <label><input type="checkbox" name="investigations" value="Hospitals contacted"> Hospitals</label>
+      <label><input type="checkbox" name="investigations" value="Nearby roads searched"> Roads</label>
+      <label><input type="checkbox" name="investigations" value="Bank transactions checked"> Transactions</label>
+      <label><input type="checkbox" name="investigations" value="Mast Data Obtained"> Mast Data</label>
+    </div>
+    <label>Other <input name="investigationsOther" type="text"></label>
+
+    <h2>Weather</h2>
+    <label>Past <input name="weatherPast" type="text"></label>
+    <label>Present <input name="weatherPresent" type="text"></label>
+    <label>Forecast <input name="weatherForecast" type="text"></label>
+
+    <h2>Risk Assessment</h2>
+    <strong>High Risk Features:</strong>
+    <div class="checkbox-group" aria-label="High risk features">
+      <label><input type="checkbox" name="highRisk" value="Solo"> Solo</label>
+      <label><input type="checkbox" name="highRisk" value="Young"> Young</label>
+      <label><input type="checkbox" name="highRisk" value="Elderly"> Elderly</label>
+      <label><input type="checkbox" name="highRisk" value="Medical issues"> Medical issues</label>
+      <label><input type="checkbox" name="highRisk" value="Ill Equipped"> Ill Equipped</label>
+      <label><input type="checkbox" name="highRisk" value="Inexperienced"> Inexperienced</label>
+      <label><input type="checkbox" name="highRisk" value="Poor weather"> Poor weather</label>
+      <label><input type="checkbox" name="highRisk" value="Difficult terrain"> Difficult terrain</label>
+    </div>
+
+    <strong>Low Risk Features:</strong>
+    <div class="checkbox-group" aria-label="Low risk features">
+      <label><input type="checkbox" name="lowRisk" value="Group"> Group</label>
+      <label><input type="checkbox" name="lowRisk" value="Adult"> Adult</label>
+      <label><input type="checkbox" name="lowRisk" value="Fit & Well"> Fit & Well</label>
+      <label><input type="checkbox" name="lowRisk" value="Well Equipped"> Well Equipped</label>
+      <label><input type="checkbox" name="lowRisk" value="Experienced"> Experienced</label>
+      <label><input type="checkbox" name="lowRisk" value="Good weather"> Good weather</label>
+    </div>
+
+    <div>
+      <button type="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+      <button type="button" onclick="downloadAsText()">Download as Text File</button>
+    </div>
+    <a href="https://misper.uk/initial-response/" target="_blank">Misper UK Categories</a>
+
+  </form>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.forms['reportForm'];
+
+    // Auto-fill date and time
+    const dateField = form?.dateTaken;
+    if (dateField) {
+      dateField.value = new Date().toISOString().split("T")[0];
+    }
+
+    const timeField = form?.timeTaken;
+    if (timeField) {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2,'0');
+      const minutes = now.getMinutes().toString().padStart(2,'0');
+      timeField.value = `${hours}:${minutes}`;
+    }
+  });
+
+  function collectFormData() {
+    const form = document.forms['reportForm'];
+    const getChecked = (name) => [...form.querySelectorAll(`input[name="${name}"]:checked`)].map(el=>el.value).join(', ');
+
+    return `
+--- Initial Details ---
+Date Taken: ${form.dateTaken.value||''} ${form.timeTaken.value||''}
+Report from: ${form.reportFrom.value||''}
+Tel/ISSI: ${form.tel.value||''}
+PolSA: ${form.polsa.value||''}
+PolSA Tel/ISSI: ${form.polsatel.value||''}
+
+--- Informant Details ---
+Name: ${form.informantName.value||''}
+Relationship to Misper: ${form.relationship.value||''}
+Tel: ${form.informantTel.value||''}
+
+--- Misper Details ---
+Name: ${form.misperName.value||''}
+Age: ${form.misperAge.value||''}
+Address: ${form.misperAddress.value||''}
+Tel: ${form.misperTel.value||''}
+Description: ${form.misperDescription.value||''}
+Past Medical Hx: ${form.misperPMH.value||''}
+
+--- Initial Planning Point ---
+Location Type: ${getChecked('locType')}
+Location: ${form.location.value||''}
+Date last seen: ${form.dateLastSeen.value||''}
+Time last seen: ${form.timeLastSeen.value||''}
+Description of Events: ${form.eventDescription.value||''}
+Method of travel: ${form.travelMethod.value||''}
+Additional Info: ${form.additionalInfo.value||''}
+
+--- Police Work ---
+Investigations Completed: ${getChecked('investigations')}
+Other: ${form.investigationsOther.value||''}
+
+--- Weather ---
+Past: ${form.weatherPast.value||''}
+Present: ${form.weatherPresent.value||''}
+Forecast: ${form.weatherForecast.value||''}
+
+--- Risk Assessment ---
+High Risk Features: ${getChecked('highRisk')}
+Low Risk Features: ${getChecked('lowRisk')}
+`.trim();
+  }
+
+  function copyToClipboard() {
+    const text = collectFormData();
+    if (!navigator.clipboard) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); alert('Form copied!'); } 
+      catch(e){ alert('Copy failed'); }
+      document.body.removeChild(ta);
+      return;
+    }
+    navigator.clipboard.writeText(text).then(()=>alert('Form copied!')).catch(()=>alert('Copy failed'));
+  }
+
+  function downloadAsText() {
+    const form = document.forms['reportForm'];
+    if(!confirm("WARNING: This file may contain personal data.\nDelete it when no longer needed.")) return;
+
+    const text = collectFormData();
+    const dateValue = (form.dateTaken?.value||'no-date').replace(/[^0-9-]/g,'') || 'no-date';
+    const blob = new Blob([text], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `incident_report_${dateValue}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+  </script>
+</body>
+</html>
