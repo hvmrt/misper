@@ -71,6 +71,22 @@
       margin-right: 4px;
     }
 
+    .radio-group {
+      display: flex;
+      gap: 24px;
+      /* space between options */
+      align-items: center;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      /* space between radio + text */
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
     button {
       grid-column: 1 / -1;
       padding: 10px 20px;
@@ -118,7 +134,7 @@
 
     <h2>Initial Planning Point</h2>
     <label>Location <input name="location" type="text"></label>
-    <div class="checkbox-group" aria-label="Location type">
+    <div class="radio-group" aria-label="Location type">
       <label><input type="radio" name="locType" value="PLS"> PLS</label>
       <label><input type="radio" name="locType" value="LKP"> LKP</label>
     </div>
@@ -133,7 +149,8 @@
     <div class="checkbox-group" aria-label="Investigations">
       <label><input type="checkbox" name="investigations" value="CCVT Reviewed"> CCTV</label>
       <label><input type="checkbox" name="investigations" value="Home Searched"> Home Address</label>
-      <label><input type="checkbox" name="investigations" value="Immediate vacinity Searched"> Immediate vacinity</label>
+      <label><input type="checkbox" name="investigations" value="Immediate vacinity Searched"> Immediate
+        vacinity</label>
       <label><input type="checkbox" name="investigations" value="Family/Friends contacted"> Family/Friends</label>
       <label><input type="checkbox" name="investigations" value="Hospitals contacted"> Hospitals</label>
       <label><input type="checkbox" name="investigations" value="Nearby roads searched"> Roads</label>
