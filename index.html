@@ -6,29 +6,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Misper Report Form</title>
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-      margin: 20px;
-      color: #f0f6fc;
-      background: #0d1117;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    h2 {
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 5px;
-      grid-column: 1 / -1;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      color: #c9d1d9;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #58a6ff;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .form-container {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     form {
       display: grid;
       grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .form-section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .form-section:hover {
+      border-color: #58a6ff;
+      box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #30363d;
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #238636;
+      color: #ffffff;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      color: #79c0ff;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    h2 + .fields-grid,
+    .checkbox-group,
+    .radio-group {
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 15px;
-      max-width: 1200px;
-      margin: 0 auto;
     }
 
     @media (min-width: 900px) {
-      form {
+      h2 + .fields-grid {
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -36,170 +100,353 @@
     label {
       display: flex;
       flex-direction: column;
-      color: #9198a1;
+      color: #8b949e;
+      font-size: 0.95rem;
+      font-weight: 500;
+      gap: 8px;
+      cursor: pointer;
     }
 
-    input:not([type="checkbox"]),
+    input:not([type="checkbox"]):not([type="radio"]),
     textarea,
     select {
       width: 100%;
-      padding: 6px;
+      padding: 10px 12px;
       color: #f0f6fc;
-      margin-top: 5px;
-      border-radius: 6px;
-      box-shadow: inset 0px 1px 0px 0px #0104093d;
-      border-color: #3d444d;
-      background-color: #151b23;
-      box-sizing: border-box;
+      background-color: #0d1117;
+      border: 1.5px solid #30363d;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      resize: vertical;
     }
 
-    /* Optimized checkbox group */
-    .checkbox-group {
-      display: block;
+    input:not([type="checkbox"]):not([type="radio"]):focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #58a6ff;
+      background-color: #010409;
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
     }
 
-    .checkbox-group label {
-      display: inline-block;
-      margin-right: 12px;
-      margin-bottom: 6px;
-      border-color: #3d444d;
-      cursor: pointer;
-      white-space: nowrap;
+    textarea {
+      min-height: 100px;
+      font-family: inherit;
+      line-height: 1.4;
     }
 
-    .checkbox-group input[type="checkbox"] {
-      margin-right: 4px;
+    input::placeholder,
+    textarea::placeholder {
+      color: #6e7681;
     }
 
+    .checkbox-group,
     .radio-group {
-      display: flex;
-      gap: 24px;
-      /* space between options */
-      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(48, 54, 61, 0.3);
+      border-radius: 8px;
     }
 
+    .checkbox-group label,
     .radio-group label {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
-      /* space between radio + text */
-      cursor: pointer;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
       white-space: nowrap;
+      font-weight: 400;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #238636;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    input[type="checkbox"]:hover,
+    input[type="radio"]:hover {
+      accent-color: #2ea043;
+    }
+
+    .strong-label {
+      display: block;
+      color: #79c0ff;
+      font-weight: 600;
+      margin: 15px 0 10px 0;
+      font-size: 0.95rem;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #30363d;
+    }
+
+    @media (min-width: 600px) {
+      .button-group {
+        flex-direction: row;
+      }
     }
 
     button {
-      grid-column: 1 / -1;
-      padding: 10px 20px;
+      padding: 12px 24px;
       cursor: pointer;
-      border-radius: 6px;
-      border-color: #ffffff26;
-      background-color: #238636;
-      color: #ffff;
-      box-shadow: 0px 1px 1px 0px #01040999, 0px 1px 3px 0px #01040999;
+      border-radius: 8px;
+      border: none;
       font-family: inherit;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex: 1;
     }
 
-    button:hover {
-      background-color: #29903b;
+    .btn-primary {
+      background-color: #238636;
+      color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: #2ea043;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(35, 134, 54, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: #1f6feb;
+      color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background-color: #388bfd;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(31, 111, 235, 0.3);
+    }
+
+    .info-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: rgba(31, 111, 235, 0.1);
+      border: 1px solid #388bfd;
+      border-radius: 8px;
+      color: #58a6ff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .info-link:hover {
+      background: rgba(31, 111, 235, 0.2);
+      border-color: #58a6ff;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      background: rgba(248, 113, 113, 0.1);
+      border-left: 3px solid #f87171;
+      color: #f8949a;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+      }
+
+      .form-section {
+        padding: 18px;
+      }
+
+      .section-header {
+        margin-bottom: 15px;
+      }
+
+      button {
+        padding: 11px 16px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 
 <body>
-  <h1>Misper Report Form</h1>
+  <h1>📋 Misper Report Form</h1>
 
-  <form id="reportForm" autocomplete="off">
+  <div class="form-container">
+    <form id="reportForm" autocomplete="off">
 
-    <h2>Initial Details</h2>
-    <label>Report from <input name="reportFrom" type="text"></label>
-    <label>Tel/ISSI <input name="tel" type="text"></label>
-    <label>PolSA Name <input name="polsa" type="text"></label>
-    <label>PolSA Tel/ISSI <input name="polsatel" type="text"></label>
-    <label>Date Taken <input type="date" name="dateTaken"></label>
-    <label>Time Taken <input type="time" name="timeTaken"></label>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <h2>Initial Details</h2>
+        </div>
+        <div class="fields-grid">
+          <label>Report from <input name="reportFrom" type="text" placeholder="Officer/Caller name"></label>
+          <label>Tel/ISSI <input name="tel" type="text" placeholder="Contact number"></label>
+          <label>PolSA Name <input name="polsa" type="text" placeholder="Police Search Advisor name"></label>
+          <label>PolSA Tel/ISSI <input name="polsatel" type="text" placeholder="PolSA contact"></label>
+          <label>Date Taken <input type="date" name="dateTaken"></label>
+          <label>Time Taken <input type="time" name="timeTaken"></label>
+        </div>
+      </div>
 
-    <h2>Informant Details</h2>
-    <label>Name <input name="informantName" type="text"></label>
-    <label>Relationship to MISPER <input name="relationship" type="text"></label>
-    <label>Tel <input name="informantTel" type="text"></label>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <h2>Informant Details</h2>
+        </div>
+        <div class="fields-grid">
+          <label>Name <input name="informantName" type="text" placeholder="Full name"></label>
+          <label>Relationship to MISPER <input name="relationship" type="text" placeholder="e.g. Parent, Friend"></label>
+          <label>Tel <input name="informantTel" type="text" placeholder="Contact number"></label>
+        </div>
+      </div>
 
-    <h2>Misper Details</h2>
-    <label>Name <input name="misperName" type="text"></label>
-    <label>Age <input name="misperAge" type="text"></label>
-    <label>Address <input name="misperAddress" type="text"></label>
-    <label>Tel <input name="misperTel" type="text"></label>
-    <label>Description/Clothing <textarea name="misperDescription" rows="5"></textarea></label>
-    <label>Past Medical Hx <textarea name="misperPMH" rows="5"></textarea></label>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <h2>Missing Person Details</h2>
+        </div>
+        <div class="fields-grid">
+          <label>Name <input name="misperName" type="text" placeholder="Full name"></label>
+          <label>Age <input name="misperAge" type="text" placeholder="Age or DOB"></label>
+          <label>Address <input name="misperAddress" type="text" placeholder="Last known address"></label>
+          <label>Tel <input name="misperTel" type="text" placeholder="Phone number"></label>
+          <label style="grid-column: 1 / -1;">Description/Clothing <textarea name="misperDescription" placeholder="Physical description, clothing worn, distinguishing features..."></textarea></label>
+          <label style="grid-column: 1 / -1;">Past Medical History <textarea name="misperPMH" placeholder="Medical conditions, medications, allergies..."></textarea></label>
+        </div>
+      </div>
 
-    <h2>Initial Planning Point</h2>
-    <label>Location <input name="location" type="text"></label>
-    <div class="radio-group" aria-label="Location type">
-      <label><input type="radio" name="locType" value="PLS"> PLS</label>
-      <label><input type="radio" name="locType" value="LKP"> LKP</label>
-    </div>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <h2>Initial Planning Point</h2>
+        </div>
+        <div class="fields-grid">
+          <label>Location <input name="location" type="text" placeholder="Where last seen"></label>
+          <div style="grid-column: 1 / -1;">
+            <span class="strong-label">Location Type</span>
+            <div class="radio-group" aria-label="Location type">
+              <label><input type="radio" name="locType" value="PLS"> PLS (Point Last Seen)</label>
+              <label><input type="radio" name="locType" value="LKP"> LKP (Last Known Place)</label>
+            </div>
+          </div>
+          <label>Date last seen <input type="date" name="dateLastSeen"></label>
+          <label>Time last seen <input type="time" name="timeLastSeen"></label>
+          <label style="grid-column: 1 / -1;">Description of Events <textarea name="eventDescription" placeholder="Timeline of events leading to disappearance..."></textarea></label>
+          <label>Method of travel <input name="travelMethod" type="text" placeholder="Car, on foot, bicycle, etc."></label>
+          <label style="grid-column: 1 / -1;">Additional Info <textarea name="additionalInfo" placeholder="Any other relevant information..."></textarea></label>
+        </div>
+      </div>
 
-    <label>Date last seen <input type="date" name="dateLastSeen"></label>
-    <label>Time last seen <input type="time" name="timeLastSeen"></label>
-    <label>Description of Events <textarea name="eventDescription" rows="5"></textarea></label>
-    <label>Method of travel <input name="travelMethod" type="text"></label>
-    <label>Additional Info <textarea name="additionalInfo" rows="5"></textarea></label>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <h2>Police Investigations Completed</h2>
+        </div>
+        <div class="fields-grid">
+          <div style="grid-column: 1 / -1;">
+            <div class="checkbox-group" aria-label="Investigations">
+              <label><input type="checkbox" name="investigations" value="CCTV Reviewed"> CCTV Reviewed</label>
+              <label><input type="checkbox" name="investigations" value="Home Searched"> Home Address Searched</label>
+              <label><input type="checkbox" name="investigations" value="Immediate vicinity Searched"> Immediate Vicinity Searched</label>
+              <label><input type="checkbox" name="investigations" value="Family/Friends contacted"> Family/Friends Contacted</label>
+              <label><input type="checkbox" name="investigations" value="Hospitals contacted"> Hospitals Contacted</label>
+              <label><input type="checkbox" name="investigations" value="Nearby roads searched"> Nearby Roads Searched</label>
+              <label><input type="checkbox" name="investigations" value="Bank transactions checked"> Bank Transactions Checked</label>
+              <label><input type="checkbox" name="investigations" value="Mast Data Obtained"> Mast Data Obtained</label>
+            </div>
+          </div>
+          <label style="grid-column: 1 / -1;">Other <input name="investigationsOther" type="text" placeholder="Other investigations..."></label>
+        </div>
+      </div>
 
-    <h2>Police Investigations Completed</h2>
-    <div class="checkbox-group" aria-label="Investigations">
-      <label><input type="checkbox" name="investigations" value="CCVT Reviewed"> CCTV</label>
-      <label><input type="checkbox" name="investigations" value="Home Searched"> Home Address</label>
-      <label><input type="checkbox" name="investigations" value="Immediate vacinity Searched"> Immediate
-        vacinity</label>
-      <label><input type="checkbox" name="investigations" value="Family/Friends contacted"> Family/Friends</label>
-      <label><input type="checkbox" name="investigations" value="Hospitals contacted"> Hospitals</label>
-      <label><input type="checkbox" name="investigations" value="Nearby roads searched"> Roads</label>
-      <label><input type="checkbox" name="investigations" value="Bank transactions checked"> Transactions</label>
-      <label><input type="checkbox" name="investigations" value="Mast Data Obtained"> Mast Data</label>
-    </div>
-    <label>Other <input name="investigationsOther" type="text"></label>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">6</div>
+          <h2>Weather Conditions</h2>
+        </div>
+        <div class="fields-grid">
+          <label>Past <input name="weatherPast" type="text" placeholder="Recent weather"></label>
+          <label>Present <input name="weatherPresent" type="text" placeholder="Current conditions"></label>
+          <label>Forecast <input name="weatherForecast" type="text" placeholder="Expected weather"></label>
+        </div>
+      </div>
 
-    <h2>Weather</h2>
-    <label>Past <input name="weatherPast" type="text"></label>
-    <label>Present <input name="weatherPresent" type="text"></label>
-    <label>Forecast <input name="weatherForecast" type="text"></label>
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-number">7</div>
+          <h2>Risk Assessment</h2>
+        </div>
 
-    <h2>Risk Assessment</h2>
-    <strong>High Risk Features:</strong>
-    <div class="checkbox-group" aria-label="High risk features">
-      <label><input type="checkbox" name="highRisk" value="Solo"> Solo</label>
-      <label><input type="checkbox" name="highRisk" value="Young"> Young</label>
-      <label><input type="checkbox" name="highRisk" value="Elderly"> Elderly</label>
-      <label><input type="checkbox" name="highRisk" value="Medical issues"> Medical issues</label>
-      <label><input type="checkbox" name="highRisk" value="Ill Equipped"> Ill Equipped</label>
-      <label><input type="checkbox" name="highRisk" value="Inexperienced"> Inexperienced</label>
-      <label><input type="checkbox" name="highRisk" value="Poor weather"> Poor weather</label>
-      <label><input type="checkbox" name="highRisk" value="Difficult terrain"> Difficult terrain</label>
-    </div>
+        <div style="margin-bottom: 20px;">
+          <span class="strong-label">High Risk Features:</span>
+          <div class="checkbox-group" aria-label="High risk features">
+            <label><input type="checkbox" name="highRisk" value="Solo"> Solo</label>
+            <label><input type="checkbox" name="highRisk" value="Young"> Young</label>
+            <label><input type="checkbox" name="highRisk" value="Elderly"> Elderly</label>
+            <label><input type="checkbox" name="highRisk" value="Medical issues"> Medical issues</label>
+            <label><input type="checkbox" name="highRisk" value="Ill Equipped"> Ill Equipped</label>
+            <label><input type="checkbox" name="highRisk" value="Inexperienced"> Inexperienced</label>
+            <label><input type="checkbox" name="highRisk" value="Poor weather"> Poor weather</label>
+            <label><input type="checkbox" name="highRisk" value="Difficult terrain"> Difficult terrain</label>
+          </div>
+        </div>
 
-    <strong>Low Risk Features:</strong>
-    <div class="checkbox-group" aria-label="Low risk features">
-      <label><input type="checkbox" name="lowRisk" value="Group"> Group</label>
-      <label><input type="checkbox" name="lowRisk" value="Adult"> Adult</label>
-      <label><input type="checkbox" name="lowRisk" value="Fit & Well"> Fit & Well</label>
-      <label><input type="checkbox" name="lowRisk" value="Well Equipped"> Well Equipped</label>
-      <label><input type="checkbox" name="lowRisk" value="Experienced"> Experienced</label>
-      <label><input type="checkbox" name="lowRisk" value="Good weather"> Good weather</label>
-    </div>
+        <div>
+          <span class="strong-label">Low Risk Features:</span>
+          <div class="checkbox-group" aria-label="Low risk features">
+            <label><input type="checkbox" name="lowRisk" value="Group"> Group</label>
+            <label><input type="checkbox" name="lowRisk" value="Adult"> Adult</label>
+            <label><input type="checkbox" name="lowRisk" value="Fit & Well"> Fit & Well</label>
+            <label><input type="checkbox" name="lowRisk" value="Well Equipped"> Well Equipped</label>
+            <label><input type="checkbox" name="lowRisk" value="Experienced"> Experienced</label>
+            <label><input type="checkbox" name="lowRisk" value="Good weather"> Good weather</label>
+          </div>
+        </div>
+      </div>
 
-    <div>
-      <button type="button" onclick="copyToClipboard()">Copy to Clipboard</button>
-      <button type="button" onclick="downloadAsText()">Download as Text File</button>
-    </div>
-    <a href="https://misper.uk/initial-response/" target="_blank">Misper UK Categories</a>
+      <div class="form-section">
+        <div class="alert">
+          ⚠️ This file may contain personal data. Delete it when no longer needed.
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn-primary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+          <button type="button" class="btn-secondary" onclick="downloadAsText()">💾 Download as Text File</button>
+        </div>
+        <a href="https://misper.uk/initial-response/" target="_blank" class="info-link">
+          📖 View Misper UK Categories
+        </a>
+      </div>
 
-  </form>
+    </form>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.forms['reportForm'];
 
-      // Auto-fill date and time
       const dateField = form?.dateTaken;
       if (dateField) {
         dateField.value = new Date().toISOString().split("T")[0];
@@ -270,17 +517,24 @@ Low Risk Features: ${getChecked('lowRisk')}
         ta.value = text;
         document.body.appendChild(ta);
         ta.select();
-        try { document.execCommand('copy'); alert('Form copied!'); }
-        catch (e) { alert('Copy failed'); }
+        try {
+          document.execCommand('copy');
+          showNotification('✓ Form copied to clipboard!', 'success');
+        }
+        catch (e) {
+          showNotification('✗ Copy failed', 'error');
+        }
         document.body.removeChild(ta);
         return;
       }
-      navigator.clipboard.writeText(text).then(() => alert('Form copied!')).catch(() => alert('Copy failed'));
+      navigator.clipboard.writeText(text)
+        .then(() => showNotification('✓ Form copied to clipboard!', 'success'))
+        .catch(() => showNotification('✗ Copy failed', 'error'));
     }
 
     function downloadAsText() {
       const form = document.forms['reportForm'];
-      if (!confirm("WARNING: This file may contain personal data.\nDelete it when no longer needed.")) return;
+      if (!confirm("⚠️ WARNING: This file may contain personal data.\nDelete it when no longer needed.\n\nProceed with download?")) return;
 
       const text = collectFormData();
       const dateValue = (form.dateTaken?.value || 'no-date').replace(/[^0-9-]/g, '') || 'no-date';
@@ -293,6 +547,45 @@ Low Risk Features: ${getChecked('lowRisk')}
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
+
+      showNotification('✓ File downloaded successfully!', 'success');
+    }
+
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        background: ${type === 'success' ? '#238636' : type === 'error' ? '#f85149' : '#58a6ff'};
+        color: white;
+        border-radius: 8px;
+        font-weight: 600;
+        z-index: 10000;
+        animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+      `;
+
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideIn {
+          from { transform: translateX(400px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(400px); opacity: 0; }
+        }
+      `;
+
+      if (!document.querySelector('style[data-notification]')) {
+        style.setAttribute('data-notification', 'true');
+        document.head.appendChild(style);
+      }
+
+      document.body.appendChild(notification);
+      setTimeout(() => notification.remove(), 3000);
     }
   </script>
 </body>
